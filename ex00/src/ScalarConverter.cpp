@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/26 17:12:59 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:00:16 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ bool ScalarConverter::checkInt(std::string &verify)
 {
 	if (!verify.length())
 		return (EXIT_FAILURE);
-	for (size_t i = 0; i < verify.length(); i++)
+	for (size_t i = (0 + (verify[0] == '-') + (verify[0] == '+')); verify[i];
+			i++)
 	{
 		if (!std::isdigit(verify.c_str()[i]))
 			return (EXIT_FAILURE);
@@ -75,14 +76,10 @@ bool ScalarConverter::checkFloat(std::string &verify)
 	stt += ScalarConverter::repetitionCounter(verify, 'f');
 	if (stt != 2)
 		return (EXIT_FAILURE);
-	for (size_t i = 0; i < verify.find("."); i++)
+	for (size_t i = (0 + (verify[0] == '-') + (verify[0] == '+'));
+			verify[i] and (verify[i] != 'f'); i++)
 	{
-		if (!std::isdigit(verify.c_str()[i]))
-			return (EXIT_FAILURE);
-	}
-	for (size_t i = verify.find(".") + 1; i < verify.find("f"); i++)
-	{
-		if (!std::isdigit(verify.c_str()[i]))
+		if (!std::isdigit(verify.c_str()[i]) and verify[i] != '.')
 			return (EXIT_FAILURE);
 	}
 	if (verify[verify.length() - 1] != 'f')
@@ -97,14 +94,10 @@ bool ScalarConverter::checkDouble(std::string &verify)
 		return (EXIT_FAILURE);
 	if (ScalarConverter::repetitionCounter(verify, '.') != 1)
 		return (EXIT_FAILURE);
-	for (size_t i = 0; i < verify.find("."); i++)
+	for (size_t i = (0 + (verify[0] == '-') + (verify[0] == '+'));
+			verify[i]; i++)
 	{
-		if (!std::isdigit(verify.c_str()[i]))
-			return (EXIT_FAILURE);
-	}
-	for (size_t i = verify.find(".") + 1; i < verify.length(); i++)
-	{
-		if (!std::isdigit(verify.c_str()[i]))
+		if (!std::isdigit(verify.c_str()[i]) and verify[i] != '.')
 			return (EXIT_FAILURE);
 	}
 	std::cout << "soy un double" << std::endl;
