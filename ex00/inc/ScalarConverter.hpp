@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/26 11:25:28 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:13:04 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ class ScalarConverter
 		ScalarConverter(void);
 		ScalarConverter(const ScalarConverter &obj);
 		ScalarConverter &operator=(const ScalarConverter &obj);
+		/*
+		 * Funtions
+		*/
+		static int 	repetitionCounter(const std::string &str, char c);
+		static bool checkChar(std::string &verify);
+		static bool checkInt(std::string &verify);
+		static bool checkFloat(std::string &verify);
+		static bool checkDouble(std::string &verify);
+		static int parsing(std::string &verify);
 	public:
 		/*
 		 * Default destructor

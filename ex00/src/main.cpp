@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:54:42 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/26 11:25:22 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:13:11 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 	ScalarConverter::convert(av[1]);
-	std::cout << &nanl << std::endl;
 	return (EXIT_SUCCESS);
 }
