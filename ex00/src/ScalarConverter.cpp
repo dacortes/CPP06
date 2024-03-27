@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/27 10:35:22 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:00:47 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ ScalarConverter::~ScalarConverter(void){}
 /*
  * Funtions
 */
+
+int ScalarConverter::keyword(std::string &verify)
+{
+	std::string words[6] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
+	for (size_t i = 0; i < 6; i++)
+	{
+		if (words[i] == verify)
+			return (i);
+	}	   
+	return (-1);
+}
 
 int ScalarConverter::repetitionCounter(const std::string &str, char c)
 {
@@ -85,8 +96,8 @@ bool ScalarConverter::checkInt(std::string &verify)
 		if (!std::isdigit(verify.c_str()[i]))
 			return (EXIT_FAILURE);
 	}
-	if (ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify))
-		return (EXIT_FAILURE);
+	//if (ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify))
+	//	return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -148,5 +159,7 @@ void ScalarConverter::convert(std::string scalar)
 		int i = std::atoi(scalar.c_str());
 		std::cout << "num convert: " << i << std::endl;
 	}
+	if (ScalarConverter::keyword(scalar) == -1)
+		std::cout <<  "no es nada de nada" << std::endl;
 }
 
