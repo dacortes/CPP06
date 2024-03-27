@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/26 17:13:04 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:55:50 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 /*                            MACROS                                          */
 /******************************************************************************/
 
+# define MAX_INTEGER "2147483647"
+# define MIN_INTEGER "-2147483648"
 
 /******************************************************************************/
 /*                            CLASS                                           */
@@ -56,6 +58,8 @@ class ScalarConverter
 		 * Funtions
 		*/
 		static int 	repetitionCounter(const std::string &str, char c);
+		static bool checkLimits(const std::string &min, const std::string &max, \
+				const std::string &verify);
 		static bool checkChar(std::string &verify);
 		static bool checkInt(std::string &verify);
 		static bool checkFloat(std::string &verify);
