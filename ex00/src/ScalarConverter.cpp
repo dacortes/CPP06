@@ -6,13 +6,12 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/30 11:33:17 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/30 11:40:45 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
-#include <cfloat>
-#include <iomanip>
+
 /*
  * Orthodox Canonical Form
 */
@@ -59,28 +58,28 @@ int ScalarConverter::repetitionCounter(const std::string &str, char c)
     return (count);
 }
 
-bool	ScalarConverter::checkLimits(const std::string &min, \
-		const std::string &max, const std::string &verify)
-{
-	size_t size = verify.length();
-	size_t len_max = max.length();
-	size_t len_min = min.length();
+// bool	ScalarConverter::checkLimits(const std::string &min, \
+// 		const std::string &max, const std::string &verify)
+// {
+// 	size_t size = verify.length();
+// 	size_t len_max = max.length();
+// 	size_t len_min = min.length();
 
-	std::string pos = "+" + max;
-	if (!size or ((size > len_max and verify[0] != '-') \
-			and (size > len_max and verify[0] != '+')) or size > len_min)
-		return (EXIT_FAILURE);
-	if (verify[0] != '-' and  (size == len_max) \
-			and (std::strncmp(verify.c_str(), max.c_str(), len_max) > 0))
-		return (EXIT_FAILURE);
-	if (verify[0] == '-' and (size == len_min) \
-			and (std::strncmp(verify.c_str(), min.c_str(), len_min) > 0))
-		return (EXIT_FAILURE);
-	if (verify[0] == '+' and size == (len_max + 1) \
-			and (std::strncmp(verify.c_str(), pos.c_str(), (len_max + 1)) > 0))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
+// 	std::string pos = "+" + max;
+// 	if (!size or ((size > len_max and verify[0] != '-') \
+// 			and (size > len_max and verify[0] != '+')) or size > len_min)
+// 		return (EXIT_FAILURE);
+// 	if (verify[0] != '-' and  (size == len_max) \
+// 			and (std::strncmp(verify.c_str(), max.c_str(), len_max) > 0))
+// 		return (EXIT_FAILURE);
+// 	if (verify[0] == '-' and (size == len_min) \
+// 			and (std::strncmp(verify.c_str(), min.c_str(), len_min) > 0))
+// 		return (EXIT_FAILURE);
+// 	if (verify[0] == '+' and size == (len_max + 1) \
+// 			and (std::strncmp(verify.c_str(), pos.c_str(), (len_max + 1)) > 0))
+// 		return (EXIT_FAILURE);
+// 	return (EXIT_SUCCESS);
+// }
 
 bool ScalarConverter::checkChar(std::string &verify)
 {
@@ -194,7 +193,7 @@ int ScalarConverter::getType(std::string &verify)
 	ScalarConverter::checkDouble(verify);
 	//***********
 	ScalarConverter::keyword(verify);
-	ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify);
+	//ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify);
 
 	return (6);
 }
