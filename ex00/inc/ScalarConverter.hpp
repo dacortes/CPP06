@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/27 11:54:02 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:21:10 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ class ScalarConverter
 		static bool checkFloat(std::string &verify);
 		static bool checkDouble(std::string &verify);
 		//get type
-		static int parsing(std::string &verify);
+		static int getType(std::string &verify);
+		//convert to..
+		static bool convertToInt(std::string &str);
 	public:
 		/*
 		 * Default destructor

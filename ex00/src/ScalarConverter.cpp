@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dacortes <dacortes@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/27 12:00:47 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/03/30 11:33:17 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
+#include <cfloat>
+#include <iomanip>
 /*
  * Orthodox Canonical Form
 */
@@ -96,12 +98,9 @@ bool ScalarConverter::checkInt(std::string &verify)
 		if (!std::isdigit(verify.c_str()[i]))
 			return (EXIT_FAILURE);
 	}
-	//if (ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify))
-	//	return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-// Falta verificar los inff de todos los flotantes :v
 bool ScalarConverter::checkFloat(std::string &verify)
 {
 	int stt = 0;
@@ -120,7 +119,6 @@ bool ScalarConverter::checkFloat(std::string &verify)
 	}
 	if (verify[verify.length() - 1] != 'f')
 			return (EXIT_FAILURE);
-	std::cout << "soy un float" << std::endl;
 	return (EXIT_SUCCESS);
 }
 
@@ -136,30 +134,73 @@ bool ScalarConverter::checkDouble(std::string &verify)
 		if (!std::isdigit(verify.c_str()[i]) and verify[i] != '.')
 			return (EXIT_FAILURE);
 	}
-	std::cout << "soy un double" << std::endl;
 	return (EXIT_SUCCESS);
 }
 
-int ScalarConverter::parsing(std::string &verify)
+bool ScalarConverter::convertToInt(std::string &str)
 {
-	(void)verify;
-	return (1);
+	char *pEnd;
+
+	long res = std::strtol(str.c_str(), &pEnd, 10);
+	if ((res >  2147483647 or res < -2147483648) and errno == ERANGE)
+	{
+        std::cerr << "Error: Desbordamiento al convertir el número." << std::endl;
+        return(EXIT_FAILURE);
+	}
+	std::cout << res << std::endl;
+	return (EXIT_SUCCESS);
+}
+
+
+int ScalarConverter::getType(std::string &verify)
+{
+	char *qEnd;
+	// double h = strtod (verify.c_str(), &qEnd);
+	
+	// std::cout << static_cast<float>(h) << std::endl;
+	if (ScalarConverter::checkInt(verify))
+		return (1);
+	else
+	{
+		// int num = std::atoi(verify.c_str());
+		// std::cout << O << "num: " << E << num << std::endl; 
+		ScalarConverter::convertToInt(verify);
+		// std::cout << "Límite inferior de float: " << FLT_MIN << std::endl;
+    	// std::cout << "Límite superior de float: " << FLT_MAX << std::endl;
+    	std::cout << "Límite inferior de double: " << DBL_MIN << std::endl;
+    	std::cout << "Límite superior de double: " << DBL_MAX << std::endl;
+		std::cout << "test: " << std::fixed << std::setprecision(1) << static_cast<float>(2147483647) << std::endl;
+		std::cout << "test: " << static_cast<float>(1) << std::endl;
+		std::cout << "->test: " << strtod("1.2", &qEnd) << std::endl;
+		std::cout << "ssss: " << qEnd << std::endl;
+
+		// double n = std::atof (verify.c_str());
+		// double n;
+		// char *pEnd;
+		// n = strtod (verify.c_str(), &pEnd);
+		if (errno == ERANGE)
+		{ 
+			std::cerr << "Error: Desbordamiento al convertir el número." << std::endl;
+			return (EXIT_FAILURE);
+		}
+		// std::cout << n << std::endl;
+	}
+	if (ScalarConverter::checkFloat(verify))
+		return (2);
+	// else
+	// {
+		
+	// }
+	ScalarConverter::checkDouble(verify);
+	//***********
+	ScalarConverter::keyword(verify);
+	ScalarConverter::checkLimits(MIN_INTEGER, MAX_INTEGER, verify);
+
+	return (6);
 }
 
 void ScalarConverter::convert(std::string scalar)
 {
-	std::cout << (ScalarConverter::checkInt(scalar) ? "no es un int" : "si es un int :D")
-		<< std::endl;
-	std::cout << (ScalarConverter::checkChar(scalar) ? "no es un char " : "si es un char :D")
-		<< std::endl;
-	ScalarConverter::checkFloat(scalar);
-	ScalarConverter::checkDouble(scalar);
-	if (!ScalarConverter::checkInt(scalar))
-	{
-		int i = std::atoi(scalar.c_str());
-		std::cout << "num convert: " << i << std::endl;
-	}
-	if (ScalarConverter::keyword(scalar) == -1)
-		std::cout <<  "no es nada de nada" << std::endl;
+	ScalarConverter::getType(scalar);
 }
 
