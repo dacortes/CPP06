@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/03/30 11:38:32 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:09:48 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@
 /*                            MACROS                                          */
 /******************************************************************************/
 
-# define MAX_INTEGER "2147483647"
-# define MIN_INTEGER "-2147483648"
+# define TO_CHAR 1
+# define TO_INT 2
+# define TO_FLOAT 3
+# define TO_DOUBLE 4
+# define TO_LITERAL 5
+# define ERROR_SUCCESS -1
 
 /******************************************************************************/
 /*                            CLASS                                           */
@@ -75,6 +79,8 @@ class ScalarConverter
 		static int getType(std::string &verify);
 		//convert to..
 		static bool convertToInt(std::string &str);
+		static bool convertToFloat(std::string &str);
+		static bool convertToDouble(std::string &str);
 	public:
 		/*
 		 * Default destructor
