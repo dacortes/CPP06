@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/09 09:50:47 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:32:34 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void ScalarConverter::printConvert(void *num)
 {
 	char	*toChar = static_cast<char*>(num);
 	int		*toInt = static_cast<int*>(num);
-	float	*toFloat = static_cast<float*>(num);
+	float	*toFloat = static_cast<float*>(toInt);
 	double	*toDouble = static_cast<double*>(num);
+	//std::cout << "---->" << static_cast<int>(num) << std::endl;
 	std::cout << "char: "<< *toChar << std::endl;
 	std::cout << "int: "<< *toInt << std::endl;
-	std::cout << "float: " << std::fixed  << *toFloat << "f" << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << *toFloat << "f" << std::endl;
 	std::cout << "double: "<< *toDouble << std::endl;
 }
 
