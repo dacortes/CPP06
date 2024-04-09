@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/03 19:11:09 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:50:47 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ ScalarConverter::~ScalarConverter(void){}
 /*
  * Funtions
 */
+void ScalarConverter::printConvert(void *num)
+{
+	char	*toChar = static_cast<char*>(num);
+	int		*toInt = static_cast<int*>(num);
+	float	*toFloat = static_cast<float*>(num);
+	double	*toDouble = static_cast<double*>(num);
+	std::cout << "char: "<< *toChar << std::endl;
+	std::cout << "int: "<< *toInt << std::endl;
+	std::cout << "float: " << std::fixed  << *toFloat << "f" << std::endl;
+	std::cout << "double: "<< *toDouble << std::endl;
+}
 
 int ScalarConverter::keyword(std::string &verify)
 {
@@ -123,7 +134,7 @@ bool ScalarConverter::convertToInt(std::string &str)
         std::cerr << "Error: Desbordamiento al convertir el número: int" << std::endl;
         return(EXIT_FAILURE);
 	}
-	std::cout << "Int: " << std::fixed << std::setprecision(1) << res << std::endl;
+	ScalarConverter::printConvert(static_cast<void*>(&res));
 	return (EXIT_SUCCESS);
 }
 

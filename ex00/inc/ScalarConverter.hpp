@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/03 18:09:48 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:38:54 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ class ScalarConverter
 		 * Funtions
 		*/
 		//utils
+		static void	printConvert(void *num);
 		static int	keyword(std::string &verify);
 		static int 	repetitionCounter(const std::string &str, char c);
 		static bool checkLimits(const std::string &min, const std::string &max, \
