@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/09 19:32:34 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:44:59 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,30 @@ ScalarConverter::~ScalarConverter(void){}
 /*
  * Funtions
 */
-void ScalarConverter::printConvert(void *num)
+//Utils
+void	ScalarConverter::printConvert(char toChar, int toInt, float toFloat,
+	double toDouble, int flag)
 {
-	char	*toChar = static_cast<char*>(num);
-	int		*toInt = static_cast<int*>(num);
-	float	*toFloat = static_cast<float*>(toInt);
-	double	*toDouble = static_cast<double*>(num);
-	//std::cout << "---->" << static_cast<int>(num) << std::endl;
-	std::cout << "char: "<< *toChar << std::endl;
-	std::cout << "int: "<< *toInt << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(1) << *toFloat << "f" << std::endl;
-	std::cout << "double: "<< *toDouble << std::endl;
+	std::string displayChar;
+	displayChar.append(1, toChar);
+	std::cout << "char: " <<
+	((toInt < 0 or toInt > 255) ? \
+	"[ underflow / overflow ]" : (ScalarConverter::checkChar(displayChar) ? \
+	"Non displayable" : &displayChar[0]))
+	<< std::endl;
+	std::cout << "int:\t";
+	if ((flag == CHECK_INT) or (flag == CHECK_INT + CHECK_FLOAT))
+		std::cout << "[ underflow / overflow ]" << std::endl;
+	else
+		std::cout << toInt << std::endl;
+	std::cout << "float:\t";
+	if ((flag == CHECK_FLOAT) or (flag == CHECK_INT + CHECK_FLOAT))
+		std::cout << "[ underflow / overflow ]" << std::endl;
+	else
+		std::cout << std::fixed << std::setprecision(1) << toFloat << "f"
+		<< std::endl;
+ 	std::cout << "double:\t" << std::fixed << std::setprecision(1) << toDouble
+ 		<< std::endl;
 }
 
 int ScalarConverter::keyword(std::string &verify)
@@ -70,6 +83,7 @@ int ScalarConverter::repetitionCounter(const std::string &str, char c)
     return (count);
 }
 
+//checker type
 bool ScalarConverter::checkChar(std::string &verify)
 {
 	return (verify.length() > 1 or (verify.length() ==  1 and (verify[0] < 32 \
@@ -124,6 +138,17 @@ bool ScalarConverter::checkDouble(std::string &verify)
 	}
 	return (EXIT_SUCCESS);
 }
+//convert to
+bool ScalarConverter::convertToChar(std::string &str)
+{
+	char	toChar = static_cast<char>(str[0]);
+	int		toInt = static_cast<int>(toChar);
+	float	toFloat = static_cast<float>(toChar);
+	double	toDouble = static_cast<double>(toChar);
+	ScalarConverter::printConvert(toChar, toInt, toFloat, toDouble,
+	NO_UN_OVER_FLOW);
+	return (EXIT_SUCCESS);
+}
 
 bool ScalarConverter::convertToInt(std::string &str)
 {
@@ -132,10 +157,16 @@ bool ScalarConverter::convertToInt(std::string &str)
 	long res = std::strtol(str.c_str(), &pEnd, 10);
 	if ((res > INT_MAX or res < INT_MIN) or errno == ERANGE)
 	{
-        std::cerr << "Error: Desbordamiento al convertir el número: int" << std::endl;
+        std::cerr << "Error: Desbordamiento al convertir el número: int"
+			<< std::endl;
         return(EXIT_FAILURE);
 	}
-	ScalarConverter::printConvert(static_cast<void*>(&res));
+	char	toChar = static_cast<char>(res);
+	int		toInt = static_cast<int>(res);
+	float	toFloat = static_cast<float>(res);
+	double	toDouble = static_cast<double>(res);
+	ScalarConverter::printConvert(toChar, toInt, toFloat, toDouble,
+	NO_UN_OVER_FLOW);
 	return (EXIT_SUCCESS);
 }
 
@@ -149,7 +180,14 @@ bool ScalarConverter::convertToFloat(std::string &str)
 		std::cerr << "Error: Desbordamiento al convertir el número: float" << std::endl;
         return(EXIT_FAILURE);
 	}
-	std::cout << "Float: " << std::fixed << std::setprecision(1) << res << "f" << std::endl;
+	char	toChar = static_cast<char>(res);
+	int		toInt = static_cast<int>(res);
+	float	toFloat = static_cast<float>(res);
+	double	toDouble = static_cast<double>(res);
+	long	checkInt = static_cast<long>(res);
+	ScalarConverter::printConvert(toChar, toInt, toFloat, toDouble,
+	(((checkInt > INT_MAX or checkInt < INT_MIN) or errno == ERANGE)) ? \
+	CHECK_INT : NO_UN_OVER_FLOW);
 	return (EXIT_SUCCESS);
 }
 
@@ -163,12 +201,19 @@ bool ScalarConverter::convertToDouble(std::string &str)
 		std::cerr << "Error: Desbordamiento al convertir el número: float" << std::endl;
         return(EXIT_FAILURE);
 	}
-	// if (static_cast<float>(res))
-	// 	std::cout << "OK" << std::endl;
-	std::cout << "Double: " << std::fixed << std::setprecision(1) << res << std::endl;
+	char	toChar = static_cast<char>(res);
+	int		toInt = static_cast<int>(res);
+	float	toFloat = static_cast<float>(res);
+	double	toDouble = static_cast<double>(res);
+	long	checkInt = static_cast<long>(res);
+	ScalarConverter::printConvert(toChar, toInt, toFloat, toDouble,
+	(((checkInt > INT_MAX or checkInt < INT_MIN) or errno == ERANGE) ? \
+	(((res > FLT_MAX or res < FLT_MIN) or errno == ERANGE) ? \
+	(CHECK_INT + CHECK_FLOAT) : CHECK_INT) : NO_UN_OVER_FLOW));
 	return (EXIT_SUCCESS);
 }
 
+//get type
 int ScalarConverter::getType(std::string &verify)
 {
 	if (!ScalarConverter::checkChar(verify))
@@ -189,6 +234,8 @@ void ScalarConverter::convert(std::string scalar)
 	int stt = ScalarConverter::getType(scalar);
 
 	std::cout << stt << std::endl;
+	if ( stt == TO_CHAR)
+		ScalarConverter::convertToChar(scalar);
 	if ( stt == TO_INT)
 		ScalarConverter::convertToInt(scalar);
 	if (stt == TO_FLOAT)

@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/09 09:38:54 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:16:12 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@
 # define TO_LITERAL 5
 # define ERROR_SUCCESS -1
 
+# define NO_UN_OVER_FLOW 0
+# define CHECK_INT 1
+# define CHECK_FLOAT 2
+
 /******************************************************************************/
 /*                            CLASS                                           */
 /******************************************************************************/
@@ -66,22 +70,22 @@ class ScalarConverter
 		 * Funtions
 		*/
 		//utils
-		static void	printConvert(void *num);
+		static void printConvert(char toChar, int toInt, float toFloat,
+			double toDouble, int flag);
 		static int	keyword(std::string &verify);
 		static int 	repetitionCounter(const std::string &str, char c);
-		static bool checkLimits(const std::string &min, const std::string &max, \
-				const std::string &verify);
 		//checker type
 		static bool checkChar(std::string &verify);
 		static bool checkInt(std::string &verify);
 		static bool checkFloat(std::string &verify);
 		static bool checkDouble(std::string &verify);
-		//get type
-		static int getType(std::string &verify);
 		//convert to..
+		static bool convertToChar(std::string &str);
 		static bool convertToInt(std::string &str);
 		static bool convertToFloat(std::string &str);
 		static bool convertToDouble(std::string &str);
+		//get type
+		static int getType(std::string &verify);
 	public:
 		/*
 		 * Default destructor
