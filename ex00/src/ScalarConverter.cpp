@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/10 19:28:30 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:42:02 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,9 @@ void ScalarConverter::convert(std::string scalar)
 		ScalarConverter::convertToDouble(scalar);
 	if (stt == TO_LITERAL)
 		ScalarConverter::convertToLiteral(scalar);
+	//Falta las excepciones de los underflow/overflow
+	//y del msg_error de la conversión literal 
+	if (stt == -1)
+		std::cout << "estoy malito" << std::endl;
 }
 
