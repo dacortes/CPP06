@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/10 18:44:59 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:28:30 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ScalarConverter::printConvert(char toChar, int toInt, float toFloat,
 {
 	std::string displayChar;
 	displayChar.append(1, toChar);
-	std::cout << "char: " <<
+	std::cout << "char:\t" <<
 	((toInt < 0 or toInt > 255) ? \
 	"[ underflow / overflow ]" : (ScalarConverter::checkChar(displayChar) ? \
 	"Non displayable" : &displayChar[0]))
@@ -213,6 +213,20 @@ bool ScalarConverter::convertToDouble(std::string &str)
 	return (EXIT_SUCCESS);
 }
 
+bool ScalarConverter::convertToLiteral(std::string &str)
+{
+	std::string words[6] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
+	std::cout << "char:\timpossible" << std::endl;
+	std::cout << "int:\timpossible" << std::endl;
+	std::cout << "float:\t" << ((ScalarConverter::keyword(str) < 3) ? \
+	words[ScalarConverter::keyword(str)] : \
+	words[ScalarConverter::keyword(str) - 3]) << std::endl;
+	std::cout << "double: " << ((ScalarConverter::keyword(str) > 2) ? \
+	words[ScalarConverter::keyword(str)] : \
+	words[ScalarConverter::keyword(str) + 3]) << std::endl;
+	return (EXIT_SUCCESS);
+}
+
 //get type
 int ScalarConverter::getType(std::string &verify)
 {
@@ -224,7 +238,7 @@ int ScalarConverter::getType(std::string &verify)
 		return (TO_FLOAT);
 	if (!ScalarConverter::checkDouble(verify))
 		return (TO_DOUBLE);
-	if (!ScalarConverter::keyword(verify))
+	if (ScalarConverter::keyword(verify) > -1)
 		return (TO_LITERAL);
 	return (ERROR_SUCCESS);
 }
@@ -233,7 +247,6 @@ void ScalarConverter::convert(std::string scalar)
 {
 	int stt = ScalarConverter::getType(scalar);
 
-	std::cout << stt << std::endl;
 	if ( stt == TO_CHAR)
 		ScalarConverter::convertToChar(scalar);
 	if ( stt == TO_INT)
@@ -242,5 +255,7 @@ void ScalarConverter::convert(std::string scalar)
 		ScalarConverter::convertToFloat(scalar);
 	if (stt == TO_DOUBLE)
 		ScalarConverter::convertToDouble(scalar);
+	if (stt == TO_LITERAL)
+		ScalarConverter::convertToLiteral(scalar);
 }
 

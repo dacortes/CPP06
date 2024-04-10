@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:30:19 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/10 18:59:55 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:03:24 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ class ScalarConverter
 		static bool convertToInt(std::string &str);
 		static bool convertToFloat(std::string &str);
 		static bool convertToDouble(std::string &str);
+		static bool convertToLiteral(std::string &str);
 		//get type
 		static int getType(std::string &verify);
 	public:
