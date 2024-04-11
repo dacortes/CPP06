@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:46:38 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/11 16:58:59 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:15:22 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string>
 # include <iostream>
 # include <cerrno>
+# include "Data.hpp"
 
 /******************************************************************************/
 /*                            COLORS                                          */
@@ -47,13 +48,13 @@ class Serializer
 		* Orthodox Canonical Form
 		*/
 		Serializer( void );
-		Serializer( const Serializer& obj );
+		Serializer(const Serializer& obj);
 		Serializer &operator=( const Serializer& obj );
 		~Serializer( void );
 		/*
 		* Funtions
 		*/
-		static uintptr_t serialize(Data* ptr);
+		static uintptr_t serialize(Data *ptr);
 		static Data* deserialize(uintptr_t raw);
 };
 
