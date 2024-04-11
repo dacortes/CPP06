@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/10 19:42:02 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:19:06 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,18 @@ void	ScalarConverter::printConvert(char toChar, int toInt, float toFloat,
 	displayChar.append(1, toChar);
 	std::cout << "char:\t" <<
 	((toInt < 0 or toInt > 255) ? \
-	"[ underflow / overflow ]" : (ScalarConverter::checkChar(displayChar) ? \
+	"[ overflow / underflow ]" : (ScalarConverter::checkChar(displayChar) \
+	and !(toChar >= '0' and toChar <='9') ? \
 	"Non displayable" : &displayChar[0]))
 	<< std::endl;
 	std::cout << "int:\t";
 	if ((flag == CHECK_INT) or (flag == CHECK_INT + CHECK_FLOAT))
-		std::cout << "[ underflow / overflow ]" << std::endl;
+		std::cout << "[ overflow / underflow ]" << std::endl;
 	else
 		std::cout << toInt << std::endl;
 	std::cout << "float:\t";
 	if ((flag == CHECK_FLOAT) or (flag == CHECK_INT + CHECK_FLOAT))
-		std::cout << "[ underflow / overflow ]" << std::endl;
+		std::cout << "[ overflow / underflow ]" << std::endl;
 	else
 		std::cout << std::fixed << std::setprecision(1) << toFloat << "f"
 		<< std::endl;
@@ -157,8 +158,8 @@ bool ScalarConverter::convertToInt(std::string &str)
 	long res = std::strtol(str.c_str(), &pEnd, 10);
 	if ((res > INT_MAX or res < INT_MIN) or errno == ERANGE)
 	{
-        std::cerr << "Error: Desbordamiento al convertir el número: int"
-			<< std::endl;
+		std::cerr << "Error: Invalid range: Int: overflow/underflow"
+		<< std::endl;
         return(EXIT_FAILURE);
 	}
 	char	toChar = static_cast<char>(res);
@@ -177,8 +178,8 @@ bool ScalarConverter::convertToFloat(std::string &str)
 	double res = strtod(str.c_str(), &pEnd);
 	if ((res > FLT_MAX or res < FLT_MIN ) or errno == ERANGE)
 	{
-		std::cerr << "Error: Desbordamiento al convertir el número: float" << std::endl;
-        return(EXIT_FAILURE);
+		std::cerr << "Error: Invalid range: float: overflow/underflow"
+		<< std::endl;
 	}
 	char	toChar = static_cast<char>(res);
 	int		toInt = static_cast<int>(res);
@@ -198,7 +199,8 @@ bool ScalarConverter::convertToDouble(std::string &str)
 	double res = strtod(str.c_str(), &pEnd);
 	if ((res > DBL_MAX or res < DBL_MIN) or errno == ERANGE)
 	{
-		std::cerr << "Error: Desbordamiento al convertir el número: float" << std::endl;
+		std::cerr << "Error: Invalid range: Double: overflow/underflow"
+		<< std::endl;
         return(EXIT_FAILURE);
 	}
 	char	toChar = static_cast<char>(res);
@@ -257,9 +259,14 @@ void ScalarConverter::convert(std::string scalar)
 		ScalarConverter::convertToDouble(scalar);
 	if (stt == TO_LITERAL)
 		ScalarConverter::convertToLiteral(scalar);
-	//Falta las excepciones de los underflow/overflow
-	//y del msg_error de la conversión literal 
 	if (stt == -1)
-		std::cout << "estoy malito" << std::endl;
+	{
+		std::cout << "Error: Can't convert: " << scalar << std::endl;
+		std::cout << "-> Invalid type of literal" << std::endl;
+		std::cout << " * Allowed literals are:\n" <<
+		"[ Char -> 'a' ] | [ Int -> 1 ] | [ Float -> 1.5f ] | [ Double -> 1.5 ]"
+		<< std::endl;
+	}
+	
 }
 
