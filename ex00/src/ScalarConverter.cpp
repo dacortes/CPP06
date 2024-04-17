@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:59:09 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/11 16:19:06 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:46:27 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ bool ScalarConverter::convertToFloat(std::string &str)
 	{
 		std::cerr << "Error: Invalid range: float: overflow/underflow"
 		<< std::endl;
+		return (EXIT_FAILURE);
 	}
 	char	toChar = static_cast<char>(res);
 	int		toInt = static_cast<int>(res);
