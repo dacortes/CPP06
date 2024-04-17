@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 08:50:24 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/17 09:00:53 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/17 09:05:54 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(void)
 {
 	Data foo;
-
+	
 	foo.firstName = "foo";
 	foo.lastName = "fuu";
 	foo.age = 30;
