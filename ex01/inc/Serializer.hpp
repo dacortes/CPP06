@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:46:38 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/11 18:15:22 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/17 08:55:36 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <string>
 # include <iostream>
 # include <cerrno>
-# include "Data.hpp"
 
 /******************************************************************************/
 /*                            COLORS                                          */
@@ -41,16 +40,25 @@
 /*                            CLASS                                           */
 /******************************************************************************/
 
+typedef struct s_Data
+{
+	std::string firstName;
+	std::string lastName;
+	int		age;
+} Data;
+
 class Serializer
 {
-	public:
+	private:
+		
 		/*
 		* Orthodox Canonical Form
 		*/
-		Serializer( void );
+		Serializer(void);
 		Serializer(const Serializer& obj);
-		Serializer &operator=( const Serializer& obj );
-		~Serializer( void );
+		Serializer &operator=(const Serializer& obj);
+	public:
+		~Serializer(void);
 		/*
 		* Funtions
 		*/

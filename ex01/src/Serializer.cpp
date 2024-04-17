@@ -6,7 +6,7 @@
 /*   By: dacortes <dacortes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:46:32 by dacortes          #+#    #+#             */
-/*   Updated: 2024/04/11 18:19:48 by dacortes         ###   ########.fr       */
+/*   Updated: 2024/04/17 08:51:36 by dacortes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ Serializer::Serializer(void)
 
 Serializer::Serializer(const Serializer& obj)
 {
-	(void)obj
+	(void)obj;
 }
 
 Serializer &Serializer::operator=(const Serializer& obj)
 {
-	(void)obj
+	(void)obj;
 	return (*this);
 }
 
